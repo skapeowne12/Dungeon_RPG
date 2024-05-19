@@ -1,0 +1,33 @@
+
+
+using Godot;
+
+namespace Dungeon_RPG.Scripts.Charaters.Enemy
+{
+    public abstract partial class EnemyState: CharacterState
+    {
+        protected Vector3 destination;
+        protected Vector3 GetPointGlobalPosition(int index)
+        {
+            Vector3 localPosition = characterNode.PathNode.Curve.GetPointPosition(index);
+            Vector3 globalPosition = characterNode.PathNode.GlobalPosition;
+
+            return localPosition + globalPosition;
+        }
+        protected void Move()
+        {
+            characterNode.AgentNode.GetNextPathPosition();
+            characterNode.Velocity = characterNode.GlobalPosition.DirectionTo(destination);
+            characterNode.MoveAndSlide();
+        }
+        public override void _Ready()
+        {
+            base._Ready();
+        }
+        protected void HandleChaseAreaBodyEntered(Node3D Body)
+        {
+            characterNode.StateMachineNode.SwitchStates<EnemyChaseState>();
+        }
+
+    }
+}
