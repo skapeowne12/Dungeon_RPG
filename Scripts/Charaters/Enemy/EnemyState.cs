@@ -19,6 +19,7 @@ namespace Dungeon_RPG.Scripts.Charaters.Enemy
             characterNode.AgentNode.GetNextPathPosition();
             characterNode.Velocity = characterNode.GlobalPosition.DirectionTo(destination);
             characterNode.MoveAndSlide();
+            characterNode.flip();
         }
         public override void _Ready()
         {
@@ -27,6 +28,10 @@ namespace Dungeon_RPG.Scripts.Charaters.Enemy
         protected void HandleChaseAreaBodyEntered(Node3D Body)
         {
             characterNode.StateMachineNode.SwitchStates<EnemyChaseState>();
+        }
+        protected void HanldeAttackAreaBodyEntered(Node3D Body)
+        {
+            characterNode.StateMachineNode.SwitchStates<EnemyAttackState>();
         }
 
     }
