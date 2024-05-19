@@ -232,6 +232,8 @@ radius = 6.107
 radius = 1.4
 
 [node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "Spri3DNode", "StateMachineNode", "AgentNode", "ChaseAreaNode", "AttackAreaNode")]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_vg8vy")
 AnimPlayerNode = NodePath("AnimationPlayer")
 Spri3DNode = NodePath("Sprite3D")
