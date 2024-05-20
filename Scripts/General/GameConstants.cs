@@ -11,6 +11,7 @@ namespace Dungeon_RPG.Scripts.General
         public const string INPUT_MOVE_FORWARD = "Move_Forward";
         public const string INPUT_Move_BACKWARD = "Move_Backward";
         public const string INPUT_DASH = "Dash";
+        public const string INPUT_ATTACK = "Attack";
         public const int NOTIFICATION_ENTER_STATE = 5001;
         public const int NOTIFICATION_EXIT_STATE = 5002;
     }
