@@ -93,6 +93,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ExtResource("38_rc845"), ExtResource("39_v71sr"), ExtResource("40_nmqn3"), ExtResource("41_7t4ru"), ExtResource("42_o1asf"), ExtResource("43_3kf5o"), ExtResource("44_gmvgw"), ExtResource("45_borc0"), ExtResource("46_t0umq"), ExtResource("47_x63si"), ExtResource("48_pe02c"), ExtResource("49_0g7xa")]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachine/AttackState")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PreformHit"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_ndcfa"]
 resource_name = "Attack2"
@@ -108,6 +122,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("50_0t3oc"), ExtResource("51_cra8o"), ExtResource("52_kqos0"), ExtResource("53_o31sp"), ExtResource("54_h4ccs"), ExtResource("55_mttao"), ExtResource("56_yihyd"), ExtResource("57_xavlk"), ExtResource("58_j6eg2"), ExtResource("59_bfrei"), ExtResource("60_43ju6"), ExtResource("61_j8oo8")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachine/AttackState")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PreformHit"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_k20tj"]
@@ -190,7 +218,7 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_xw15r"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "Spri3DNode", "StateMachineNode")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "Spri3DNode", "StateMachineNode", "HitBoxNode", "HitBoxShapeNode")]
 collision_layer = 2
 collision_mask = 7
 floor_max_angle = 1.56381
@@ -200,6 +228,8 @@ stats = Array[Object]([SubResource("Resource_eh2np"), SubResource("Resource_i8ow
 AnimPlayerNode = NodePath("AnimationPlayer")
 Spri3DNode = NodePath("Sprite3D")
 StateMachineNode = NodePath("StateMachine")
+HitBoxNode = NodePath("Hitbox")
+HitBoxShapeNode = NodePath("Hitbox/CollisionShape3D")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 pixel_size = 0.0025
@@ -247,5 +277,5 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.853947, 0, 0)
 shape = SubResource("BoxShape3D_xw15r")
+disabled = true

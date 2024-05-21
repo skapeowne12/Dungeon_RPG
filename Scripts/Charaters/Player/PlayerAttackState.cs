@@ -28,7 +28,19 @@ public partial class PlayerAttackState : PlayerState
     {
         comboCounter ++;
         comboCounter = Mathf.Wrap(comboCounter,1,maxComboCount + 1);
+        characterNode.ToggleHitBox(true);
         characterNode.StateMachineNode.SwitchStates<IdleState>();
+        
+    }
+    private void PreformHit()
+    {
+        Vector3  newPosition = characterNode.Spri3DNode.FlipH ?
+            Vector3.Left:
+            Vector3.Right;
+        float distaceModifer = .75f;
+        newPosition = newPosition * distaceModifer;
+        characterNode.HitBoxNode.Position = newPosition;
+        characterNode.ToggleHitBox(false);
     }
     
 

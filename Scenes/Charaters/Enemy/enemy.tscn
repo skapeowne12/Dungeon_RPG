@@ -242,7 +242,7 @@ radius = 6.107
 [sub_resource type="SphereShape3D" id="SphereShape3D_2rcit"]
 radius = 1.4
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "Spri3DNode", "StateMachineNode", "AgentNode", "ChaseAreaNode", "AttackAreaNode", "HurtBoxNode")]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "Spri3DNode", "StateMachineNode", "HurtBoxNode", "AgentNode", "ChaseAreaNode", "AttackAreaNode")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_vg8vy")
@@ -250,10 +250,10 @@ stats = Array[Object]([SubResource("Resource_sq2oq"), SubResource("Resource_m5o1
 AnimPlayerNode = NodePath("AnimationPlayer")
 Spri3DNode = NodePath("Sprite3D")
 StateMachineNode = NodePath("StateMachine")
+HurtBoxNode = NodePath("Hurtbox")
 AgentNode = NodePath("NavigationAgent3D")
 ChaseAreaNode = NodePath("ChaseArea")
 AttackAreaNode = NodePath("AttackArea")
-HurtBoxNode = NodePath("Hurtbox")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 pixel_size = 0.0025
