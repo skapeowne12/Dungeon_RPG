@@ -1,5 +1,6 @@
 
 
+using System;
 using Godot;
 
 namespace Dungeon_RPG.Scripts.Charaters.Enemy
@@ -7,6 +8,9 @@ namespace Dungeon_RPG.Scripts.Charaters.Enemy
     public abstract partial class EnemyState: CharacterState
     {
         protected Vector3 destination;
+
+        
+    
         protected Vector3 GetPointGlobalPosition(int index)
         {
             Vector3 localPosition = characterNode.PathNode.Curve.GetPointPosition(index);
@@ -24,6 +28,8 @@ namespace Dungeon_RPG.Scripts.Charaters.Enemy
         public override void _Ready()
         {
             base._Ready();
+
+            characterNode.GetStatResource(Resources.Stat.Health).OnZero += HandleZeroHealth;
         }
         protected void HandleChaseAreaBodyEntered(Node3D Body)
         {
@@ -33,6 +39,9 @@ namespace Dungeon_RPG.Scripts.Charaters.Enemy
         {
             characterNode.StateMachineNode.SwitchStates<EnemyAttackState>();
         }
-
+        private void HandleZeroHealth()
+        {
+            characterNode.StateMachineNode.SwitchStates<EnemyDeathState>();
+        }
     }
 }
