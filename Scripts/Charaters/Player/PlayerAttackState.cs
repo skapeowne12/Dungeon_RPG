@@ -34,13 +34,14 @@ public partial class PlayerAttackState : PlayerState
     }
     private void PreformHit()
     {
+        characterNode.ToggleHitBox(false);
         Vector3  newPosition = characterNode.Spri3DNode.FlipH ?
             Vector3.Left:
             Vector3.Right;
         float distaceModifer = .75f;
         newPosition = newPosition * distaceModifer;
         characterNode.HitBoxNode.Position = newPosition;
-        characterNode.ToggleHitBox(false);
+        
     }
     
 
