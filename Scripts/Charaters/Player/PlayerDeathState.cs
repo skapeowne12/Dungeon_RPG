@@ -1,17 +1,16 @@
-using Dungeon_RPG.Scripts.Charaters.Enemy;
 using Dungeon_RPG.Scripts.General;
 using Godot;
 using System;
 
-public partial class EnemyDeathState : EnemyState
+public partial class PlayerDeathState : PlayerState
 {
     protected override void EnterState()
     {
         characterNode.AnimPlayerNode.Play(GameConstants.ANIM_DEATH);
-        characterNode.AnimPlayerNode.AnimationFinished += HandleAnimationFinished;
+        characterNode.AnimPlayerNode.AnimationFinished += HandleAnamationFinished;
     }
 
-    private void HandleAnimationFinished(StringName animName)
+    private void HandleAnamationFinished(StringName animName)
     {
         characterNode.QueueFree();
     }
