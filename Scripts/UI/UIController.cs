@@ -1,3 +1,4 @@
+using Dungeon_RPG.Assets.Sprites.Reward;
 using Dungeon_RPG.Scripts.General;
 using Dungeon_RPG.Scripts.UI;
 using Godot;
@@ -8,7 +9,6 @@ public partial class UIController : Control
 {
     private Dictionary<ContainerType,UIContainer> contaniers;
     private bool canPause = false;
-
     public override void _Ready()
     {
         contaniers = GetChildren().Where((element) => element is UIContainer).Cast<UIContainer>().ToDictionary((elment) => elment.Container);
@@ -17,20 +17,13 @@ public partial class UIController : Control
 
         contaniers[ContainerType.Start].ButtonNode.Pressed += HandlStartPuttonPressed;
         contaniers[ContainerType.Pause].ButtonNode.Pressed += HandlePauseButtonPressed;
+        contaniers[ContainerType.Reward].ButtonNode.Pressed += HandleRewardButtonPressed;
 
         GameEvents.OnEndGame += HandleEndGame;
         GameEvents.OnVictory += HandleOnVictory;
+        GameEvents.OnReward += HandleReward;
         
     }
-
-    private void HandlePauseButtonPressed()
-    {
-        GetTree().Paused = false;
-        contaniers[ContainerType.Pause].Visible = false;
-        contaniers[ContainerType.Stats].Visible = true;
-    }
-
-
     public override void _Input(InputEvent @event)
     {
         if (!canPause)
@@ -73,5 +66,31 @@ public partial class UIController : Control
         GameEvents.RaiseStartGame();
         
     }
+    private void HandleReward(RewardResource resource)
+    {
+            canPause = false;
+            GetTree().Paused = true;
+            contaniers[ContainerType.Stats].Visible = false;
+            contaniers[ContainerType.Reward].Visible = true;
 
+            contaniers[ContainerType.Reward].TextureNode.Texture = resource.spriteTexture;
+            contaniers[ContainerType.Reward].Lablenode.Text = resource.Description;
+
+
+    }
+    private void HandleRewardButtonPressed()
+    {
+            canPause = true;
+            GetTree().Paused = false;
+            contaniers[ContainerType.Stats].Visible = true;
+            contaniers[ContainerType.Reward].Visible = false;
+    }
+
+
+    private void HandlePauseButtonPressed()
+    {
+        GetTree().Paused = false;
+        contaniers[ContainerType.Pause].Visible = false;
+        contaniers[ContainerType.Stats].Visible = true;
+    }
 }
