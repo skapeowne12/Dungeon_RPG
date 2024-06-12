@@ -5,6 +5,9 @@ namespace Dungeon_RPG.Scripts.Charaters
     using System.Linq;
 
     using Godot;
+    using Dungeon_RPG.Scripts.Interfaces;
+
+
     public abstract partial class Character : CharacterBody3D
     {
     [Export]private StatResource[] stats;
@@ -30,9 +33,13 @@ namespace Dungeon_RPG.Scripts.Charaters
 
         private void HandleHrutBoxEnterd(Area3D area)
         {
+            if (area is not IHitbox hitbox)
+            {
+                return;
+            }
             StatResource health = GetStatResource(Stat.Health);
-            Character player = area.GetOwner<Character>();
-            health.StatValue -= player.GetStatResource(Stat.Strength).StatValue;
+            float damage = hitbox.GetDamage();
+            health.StatValue -= damage;
             GD.Print(health.StatValue);
         }
 

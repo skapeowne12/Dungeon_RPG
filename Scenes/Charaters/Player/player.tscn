@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://dv6glklmiffsx"]
+[gd_scene load_steps=97 format=3 uid="uid://dv6glklmiffsx"]
 
 [ext_resource type="Texture2D" uid="uid://bjn3o4nrfbnht" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_000.png" id="1_f5s7e"]
 [ext_resource type="Script" path="res://Scripts/Charaters/Player/Player.cs" id="1_gj3sn"]
@@ -84,6 +84,8 @@
 [ext_resource type="Texture2D" uid="uid://cn70og8uktvbw" path="res://Assets/Sprites/Characters/Player/Dying/Dying_013.png" id="76_bri8d"]
 [ext_resource type="Texture2D" uid="uid://br85y5fynioqb" path="res://Assets/Sprites/Characters/Player/Dying/Dying_014.png" id="77_utab7"]
 [ext_resource type="Script" path="res://Scripts/Charaters/Player/PlayerDeathState.cs" id="83_tcbc1"]
+[ext_resource type="PackedScene" uid="uid://ddvojwiajygc8" path="res://Scenes/Ablities/bomb.tscn" id="83_ydnkq"]
+[ext_resource type="Script" path="res://Scripts/Charaters/AttackHitbox.cs" id="86_qcqr5"]
 
 [sub_resource type="Animation" id="Animation_i1wac"]
 resource_name = "Attack1"
@@ -280,6 +282,7 @@ script = ExtResource("40_umxci")
 [node name="DashState" type="Node" parent="StateMachine" node_paths=PackedStringArray("dashTimerNode")]
 script = ExtResource("41_gwgrb")
 dashTimerNode = NodePath("DashTimer")
+BombScene = ExtResource("83_ydnkq")
 
 [node name="DashTimer" type="Timer" parent="StateMachine/DashState"]
 wait_time = 0.439
@@ -303,6 +306,7 @@ shape = SubResource("CapsuleShape3D_svoag")
 [node name="Hitbox" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 0
+script = ExtResource("86_qcqr5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
 shape = SubResource("BoxShape3D_xw15r")
