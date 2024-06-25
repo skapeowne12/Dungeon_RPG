@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://m5u54028dq30" path="res://Assets/Sprites/Effects/Explosion/8.png" id="9_mjqg8"]
 [ext_resource type="Texture2D" uid="uid://c4jsxjrhh7vf6" path="res://Assets/Sprites/Effects/Explosion/9.png" id="10_8pw60"]
 [ext_resource type="Texture2D" uid="uid://o2bub5b654lw" path="res://Assets/Sprites/Effects/Explosion/10.png" id="11_to53w"]
-[ext_resource type="Script" path="res://Scripts/Abilities/BombHitBox.cs" id="13_34twu"]
+[ext_resource type="Script" path="res://Scripts/Abilities/AbilityHitBox.cs" id="13_cxwr2"]
 
 [sub_resource type="Animation" id="Animation_7wtxv"]
 resource_name = "Expand"
@@ -107,7 +107,7 @@ autoplay = "Expand"
 [node name="HitBox" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("13_34twu")
+script = ExtResource("13_cxwr2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
 shape = SubResource("SphereShape3D_alxqv")

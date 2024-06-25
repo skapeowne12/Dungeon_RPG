@@ -1,11 +1,10 @@
+using Dungeon_RPG.Scripts.Abilities;
 using Dungeon_RPG.Scripts.General;
 using Godot;
 using System;
 
-public partial class Bomb : Node3D
+public partial class Bomb : Ability
 {
-    [Export]private AnimationPlayer playerNode;
-    [Export]public float damage {get;private set;} = 10;
 
     public override void _Ready()
     {
