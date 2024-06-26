@@ -9,6 +9,7 @@ namespace Dungeon_RPG.Scripts.General
         public const string ANIM_DEATH = "Death";
         public const string ANIM_EXPAND = "Expand";
         public const string ANIM_EXPLOSION = "Explosion";
+        public const string ANIM_STUN = "Stun";
         public const string INPUT_MOVE_LEFT = "Move_Left";
         public const string INPUT_MOVE_RIGHT = "Move_Right";
         public const string INPUT_MOVE_FORWARD = "Move_Forward";

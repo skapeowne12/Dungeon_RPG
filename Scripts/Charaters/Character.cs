@@ -18,11 +18,14 @@ namespace Dungeon_RPG.Scripts.Charaters
     [Export] public Area3D HurtBoxNode {get; private set;}
     [Export] public Area3D HitBoxNode {get; private set;}
     [Export] public CollisionShape3D HitBoxShapeNode {get; private set;}
+    [Export] public Timer HitShaderTimer {get; private set;}
+    
     [ExportGroup("AI Nodes")]
     [Export] public Path3D PathNode {get; private set;}
     [Export] public NavigationAgent3D AgentNode {get;private set;}
     [Export] public Area3D ChaseAreaNode {get; private set;}
     [Export] public Area3D AttackAreaNode {get; private set;}
+    
 
     private ShaderMaterial shader;
 
@@ -33,9 +36,16 @@ namespace Dungeon_RPG.Scripts.Charaters
             shader = (ShaderMaterial)Spri3DNode.MaterialOverlay;
             HurtBoxNode.AreaEntered += HandleHrutBoxEnterd;
             Spri3DNode.TextureChanged += HandleTextureChanged;
+            HitShaderTimer.Timeout += HandleHitShaderTimer;
         }
 
-    
+        private void HandleHitShaderTimer()
+        {
+            shader.SetShaderParameter(
+                "active",false
+            );
+        }
+
 
         private void HandleHrutBoxEnterd(Area3D area)
         {
@@ -49,6 +59,7 @@ namespace Dungeon_RPG.Scripts.Charaters
             shader.SetShaderParameter(
                 "active",true
             );
+            HitShaderTimer.Start();
         }
 
         public StatResource GetStatResource(Stat stat)

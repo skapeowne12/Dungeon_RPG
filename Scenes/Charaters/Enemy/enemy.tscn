@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=3 uid="uid://dvufa6jgce2ka"]
+[gd_scene load_steps=123 format=3 uid="uid://dvufa6jgce2ka"]
 
 [ext_resource type="Texture2D" uid="uid://cw4kkaendquly" path="res://Assets/Sprites/Characters/Enemy Knight/Idle/0_Demons_of_Darkness_Idle_000.png" id="1_oft1q"]
 [ext_resource type="Script" path="res://Scripts/Charaters/Enemy/Enemy.cs" id="1_vg8vy"]
@@ -107,6 +107,7 @@
 [ext_resource type="Script" path="res://Scripts/Charaters/Enemy/EnemyAttackState.cs" id="103_t07c4"]
 [ext_resource type="Script" path="res://Scripts/Charaters/Enemy/EnemyDeathState.cs" id="105_q2kkm"]
 [ext_resource type="Script" path="res://Scripts/Charaters/AttackHitbox.cs" id="106_6xn26"]
+[ext_resource type="Script" path="res://Scripts/Charaters/Enemy/StunState.cs" id="107_oeikn"]
 
 [sub_resource type="Resource" id="Resource_sq2oq"]
 script = ExtResource("2_w2hkl")
@@ -119,6 +120,7 @@ StatType = 1
 StatValue = 4.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fp6l4"]
+resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("3_xm5tg")
 shader_parameter/active = false
@@ -233,7 +235,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_rqifj"]
-resource_name = "TakeHit"
+resource_name = "Stun"
 step = 0.0909091
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -255,7 +257,7 @@ _data = {
 "Idle": SubResource("Animation_3im0j"),
 "Move": SubResource("Animation_j3o4t"),
 "RESET": SubResource("Animation_my130"),
-"TakeHit": SubResource("Animation_rqifj")
+"Stun": SubResource("Animation_rqifj")
 }
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q34ng"]
@@ -269,7 +271,7 @@ radius = 1.15
 [sub_resource type="BoxShape3D" id="BoxShape3D_64m72"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "Spri3DNode", "StateMachineNode", "HurtBoxNode", "HitBoxNode", "HitBoxShapeNode", "AgentNode", "ChaseAreaNode", "AttackAreaNode")]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "Spri3DNode", "StateMachineNode", "HurtBoxNode", "HitBoxNode", "HitBoxShapeNode", "HitShaderTimer", "AgentNode", "ChaseAreaNode", "AttackAreaNode")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_vg8vy")
@@ -280,6 +282,7 @@ StateMachineNode = NodePath("StateMachine")
 HurtBoxNode = NodePath("Hurtbox")
 HitBoxNode = NodePath("Hitbox")
 HitBoxShapeNode = NodePath("Hitbox/CollisionShape3D")
+HitShaderTimer = NodePath("HitShaderTimer")
 AgentNode = NodePath("NavigationAgent3D")
 ChaseAreaNode = NodePath("ChaseArea")
 AttackAreaNode = NodePath("AttackArea")
@@ -300,7 +303,7 @@ shape = SubResource("CapsuleShape3D_q34ng")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("currentState", "states") instance=ExtResource("97_w5sy7")]
 currentState = NodePath("IdleState")
-states = [NodePath("IdleState"), NodePath("ReturnState"), NodePath("EnemyPatrolState"), NodePath("EnemyChaseState"), NodePath("EnemyAttackState"), NodePath("DeathState")]
+states = [NodePath("IdleState"), NodePath("ReturnState"), NodePath("EnemyPatrolState"), NodePath("EnemyChaseState"), NodePath("EnemyAttackState"), NodePath("DeathState"), NodePath("StunState")]
 
 [node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("99_e0fx8")
@@ -328,6 +331,9 @@ script = ExtResource("103_t07c4")
 
 [node name="DeathState" type="Node" parent="StateMachine"]
 script = ExtResource("105_q2kkm")
+
+[node name="StunState" type="Node" parent="StateMachine"]
+script = ExtResource("107_oeikn")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 debug_enabled = true
@@ -362,3 +368,7 @@ script = ExtResource("106_6xn26")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
 shape = SubResource("BoxShape3D_64m72")
 disabled = true
+
+[node name="HitShaderTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
